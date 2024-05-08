@@ -4,15 +4,15 @@ on:
   push:
     branches: [ "master" ]
 
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      
+      run: |
+        docker build . --file Dockerfile --tag nadeenaz/jenkins-task2:latest
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push nadeenaz/jenkins-task2:latest
